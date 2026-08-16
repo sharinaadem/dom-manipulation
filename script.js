@@ -5,20 +5,24 @@ let person = document.querySelector(".person");
 let newQuoteBtn = document.getElementById("new-quote");
 
 
-
-newQuoteBtn.addEventListener("click", async function getQuote() {
-    try {
-        let response = await fetch("https://dummyjson.com/quotes/random");
-
-        let data = await response.json();
-
-        quote.innerText = data.quote;
-        person.innerText = data.author;
-
-        console.log(data);
-    } catch (error) {
-        quote.innerText = "We could not fetch a new quote at this time.";
-        person.innerText = "System Error";
-        console.error("An error occurred while fetching the quote:", error);
+//array of quotes
+const quotes = [
+    {
+        quote: `"The best way to get started is to quit talking and begin doing."`,
+        person: "Walt Disney"
+    },
+    {
+        quote: `"The future belongs to those who believe in the beauty of their dreams."`,
+        person: "Eleanor Roosevelt"
+    },
+    {
+        quote: `"It does not matter how slowly you go as long as you do not stop."`,
+        person: "Confucius"
     }
+];
+
+newQuoteBtn.addEventListener("click", function() {
+    let random = Math.floor(Math.random() * quotes.length)
+    quote.innerText = quotes[random].quote;
+    person.innerText = quotes[random].person;
 });
