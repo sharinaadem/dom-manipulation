@@ -8,7 +8,13 @@ let newQuoteBtn = document.getElementById("new-quote");
 
 newQuoteBtn.addEventListener("click", async function getQuote() {
     try {
-        let response = await fetch("https://dummyjson.com/quotes/random");
+        const controller = new AbortController();
+        setTimeout(function(){
+            controller.abort();
+        }, 3000); // 3 seconds timeout
+        let response = await fetch("https://dummyjson.com/quotes/random", {
+            signal: controller.signal
+        });
 
         let data = await response.json();
 
